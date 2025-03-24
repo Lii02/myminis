@@ -1,6 +1,22 @@
 import '@/styles/NavBar.css';
 import Link from 'next/link';
-import { SignInLink } from './SignInLink';
+import { MdSettings } from 'react-icons/md';
+
+export function SignInLink() {
+	return (
+		<Link href='/signin' className='RightButton'>
+			<h4>Sign In</h4>
+		</Link>
+	);
+}
+
+function SettingsLink() {
+	return (
+		<Link href='/settings' className='RightButton'>
+			<MdSettings />
+		</Link>
+	);
+}
 
 export function NavBar() {
 	let signedIn = false;
@@ -14,7 +30,7 @@ export function NavBar() {
 			<Link href='/collection'>
 				<h4>Collection</h4>
 			</Link>
-			{signedIn ? null : <SignInLink />}
+			{signedIn ? <SettingsLink /> : <SignInLink />}
 		</nav>
 	);
 }
