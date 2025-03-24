@@ -1,5 +1,5 @@
 {
-	"name": "myminis-frontend",
+	"name": "myminis",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"lint:fix": "prettier --write ."
+		"lint:fix": "prettier --write .",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"next": "15.2.3",
@@ -26,7 +27,16 @@
 		"eslint-config-next": "15.2.3",
 		"eslint-config-prettier": "^10.1.1",
 		"eslint-plugin-prettier": "^5.2.3",
+		"husky": "^9.1.7",
 		"prettier": "^3.5.3",
 		"typescript": "^5"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Lii02/myminis.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Lii02/myminis/issues"
+	},
+	"homepage": "https://github.com/Lii02/myminis#readme"
 }
