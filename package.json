@@ -1,0 +1,27 @@
+{
+  "name": "myminis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && gunicorn -b 0.0.0.0:5000 app:app",
+    "client": "cd frontend && npm run start",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lii02/myminis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Lii02/myminis/issues"
+  },
+  "homepage": "https://github.com/Lii02/myminis#readme",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
