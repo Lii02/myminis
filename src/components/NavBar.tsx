@@ -1,13 +1,6 @@
 import '@/styles/NavBar.css';
 import Link from 'next/link';
-
-function SignInLink() {
-	return (
-		<Link href='/signin' className='SignIn'>
-			<h4>Sign In</h4>
-		</Link>
-	);
-}
+import { SignInLink } from './SignInLink';
 
 export function NavBar() {
 	let signedIn = false;
