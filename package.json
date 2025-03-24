@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "command -v husky > /dev/null 2>&1 && husky install || true",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && gunicorn -b 0.0.0.0:5000 app:app",
     "client": "cd frontend && npm run start",
