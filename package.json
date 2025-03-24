@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && gunicorn -b 0.0.0.0:5000 app:app",
     "client": "cd frontend && npm run start",
-    "heroku-postbuild": "cd frontend && npm ci && npm run build"
+    "heroku-postbuild": "cd frontend && npm install--omit=dev && npm run build"
   },
   "repository": {
     "type": "git",
