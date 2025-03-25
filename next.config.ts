@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
 				source: '/api/:path*',
 				destination:
 					process.env.NODE_ENV === 'development'
-						? 'http://localhost:5000/api/:path*'
-						: 'https://myminis.ue.r.appspot.com/api/:path*',
+						? 'http://localhost:8080/api/:path*'
+						: 'https://myminisapp.ue.r.appspot.com/api/:path*',
 			},
 		];
 	},
