@@ -9,4 +9,3 @@ threads = 4
 timeout = 20
 
 bind = ["[::]:{}".format(os.environ.get("PORT", 5000))]
-
