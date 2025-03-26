@@ -1,18 +1,24 @@
-nav {
+.nav {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	background: rgb(10, 10, 10);
 }
 
-nav h1 {
+.nav h1 {
 	font-family: var(--font-press-start);
 }
 
-nav * {
+.nav * {
 	margin: 10px 10px;
 }
 
-nav .RightButton {
+.RightSide {
+	margin-left: auto;
+	align-items: center;
+	display: flex;
+}
+
+.RightButton {
 	margin-left: auto;
 }

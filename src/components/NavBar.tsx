@@ -1,20 +1,43 @@
-import '@/styles/NavBar.css';
+'use client';
+import styles from '@/styles/NavBar.module.css';
 import Link from 'next/link';
-import { MdSettings } from 'react-icons/md';
+import { useState } from 'react';
+import { MdAdd, MdSettings } from 'react-icons/md';
+import { SignInModal } from './SignInModal';
 
 export function SignInLink() {
+	const [isOpen, setIsOpen] = useState(false);
+
 	return (
-		<Link href='/signin' className='RightButton'>
-			<h4>Sign In</h4>
+		<>
+			<button onClick={() => setIsOpen(true)}>Sign In</button>
+			<SignInModal value={isOpen} setValue={setIsOpen} />
+		</>
+	);
+}
+
+function AddLink() {
+	return (
+		<Link href='/add' className={styles.RightButton}>
+			<MdAdd />
 		</Link>
 	);
 }
 
 function SettingsLink() {
 	return (
-		<Link href='/settings' className='RightButton'>
+		<Link href='/settings' className={styles.RightButton}>
 			<MdSettings />
 		</Link>
+	);
+}
+
+function UserOptions() {
+	return (
+		<>
+			<AddLink />
+			<SettingsLink />
+		</>
 	);
 }
 
@@ -22,7 +45,7 @@ export function NavBar() {
 	let signedIn = false;
 
 	return (
-		<nav>
+		<nav className={styles.nav}>
 			<h1>MyMinis</h1>
 			<Link href='/home'>
 				<h4>Home</h4>
@@ -30,7 +53,9 @@ export function NavBar() {
 			<Link href='/collection'>
 				<h4>Collection</h4>
 			</Link>
-			{signedIn ? <SettingsLink /> : <SignInLink />}
+			<div className={styles.RightSide}>
+				{signedIn ? <UserOptions /> : <SignInLink />}
+			</div>
 		</nav>
 	);
 }
