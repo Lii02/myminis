@@ -11,6 +11,8 @@ services:
         - action: sync
           path: .
           target: /src
+    environment:
+      - JWT_SECRET=jwtsecretkey
   mongo:
     image: mongo:latest
     restart: always
