@@ -1,12 +1,12 @@
-FROM python:latest
+FROM node:latest
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY package.json .
+RUN npm install
 
 COPY . /app
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--config", "gunicorn.conf.py", "src.app:app"]
+CMD ["npm", "run", "start:prod"]

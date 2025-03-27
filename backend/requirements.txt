@@ -1,6 +1,0 @@
-Flask
-flask-cors
-gunicorn
-pymongo
-python-dotenv
-flask-jwt-extended
