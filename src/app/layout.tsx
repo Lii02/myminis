@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import '@/styles/builtins.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { createFontClasses } from '@/constants/fonts';

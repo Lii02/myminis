@@ -12,7 +12,9 @@ function SignInForm(props: GenericStateProp<boolean>) {
 			<form action={signIn}>
 				<input type='email' placeholder='Email' />
 				<input type='password' placeholder='Password' />
-				<button type='submit'>Sign In</button>
+				<button type='submit' className='SubmitButton'>
+					Sign In
+				</button>
 			</form>
 			<p>
 				Dont have an account?{' '}
@@ -28,7 +30,13 @@ function SignUpForm() {
 	return (
 		<>
 			<h2>Sign Up</h2>
-			<form action={signUp}></form>
+			<form action={signUp}>
+				<input type='email' placeholder='Email' />
+				<input type='password' placeholder='Password' />
+				<button type='submit' className='SubmitButton'>
+					Sign Up
+				</button>
+			</form>
 		</>
 	);
 }

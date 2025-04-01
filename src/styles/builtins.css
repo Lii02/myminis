@@ -1,0 +1,19 @@
+.CloseButton {
+	background: none;
+	border: none;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	transition: color 0.2s ease-in;
+}
+
+.CloseButton:hover {
+	color: rgb(100, 100, 100);
+}
+
+.SubmitButton {
+	padding: 5px 5px;
+}
+
+.SubmitButton:hover {
+}

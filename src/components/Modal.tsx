@@ -16,7 +16,7 @@ function Modal(props: ModalProps) {
 	return createPortal(
 		<div className={styles.ModalOverlay} onClick={props.onClose}>
 			<div className={styles.Modal} onClick={(e) => e.stopPropagation()}>
-				<button className={styles.CloseButton} onClick={props.onClose}>
+				<button className='CloseButton' onClick={props.onClose}>
 					<MdClose />
 				</button>
 				{props.children}

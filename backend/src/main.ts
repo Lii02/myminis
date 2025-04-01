@@ -32,6 +32,11 @@ app.get('/api/user', async (req: Request, res: Response) => {
 	}
 
 	const user = await User.find({ email: email });
+	if (!user) {
+		res.status(400).json({ status: false, message: 'User not found' });
+	} else {
+		res.status(200).json({ status: true, data: user });
+	}
 });
 
 app.delete('/api/user', async (req: Request, res: Response) => {});
