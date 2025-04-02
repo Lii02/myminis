@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
 				destination:
 					process.env.NODE_ENV === 'development'
 						? 'http://localhost:5000/:path*'
-						: 'https://myminis-31f8130e43e3.herokuapp.com/:path*',
+						: 'https://myminis-6e145091fe41.herokuapp.com/:path*',
 			},
 		];
 	},
