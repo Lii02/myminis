@@ -5,8 +5,8 @@
 	"main": "dist/main.js",
 	"scripts": {
 		"build": "tsc",
-		"start:dev": "ts-node-dev --respawn --transpile-only src/main.ts",
-		"start:containers": "docker compose up --build",
+		"dev": "ts-node-dev --respawn --transpile-only src/main.ts",
+		"containers": "docker compose up --build",
 		"start:clean": "npm ci && node .",
 		"start": "tsc && node ."
 	},

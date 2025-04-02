@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "build": "npm run build --workspaces",
-		"start:frontend": "cd frontend && npm run start",
-		"start:backend": "cd backend && npm run start:clean"
+    "start:frontend": "cd frontend && npm run start",
+    "start:backend": "cd backend && npm run start:clean",
+    "start": "concurrently \"npm run start:frontend\" \"cd backend && npm run containers\""
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
