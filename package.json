@@ -3,13 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-		"build:frontend": "cd frontend && npm run build",
-		"build:backend": "cd backend && npm run build",
-		"build": "concurrently \"npm run build:frontend\" \"npm run build:backend\"",
-
-    "start:frontend": "cd frontend && npm start",
-		"start:backend": "cd backend && npm run start:prod",
-		"start:backend_docker": "cd backend && npm start:containers"
+		"build": "npm run build --workspaces",
+		"start": "npm run start --workspaces"
   },
   "repository": {
     "type": "git",
@@ -22,7 +17,8 @@
     "url": "https://github.com/Lii02/myminis/issues"
   },
   "homepage": "https://github.com/Lii02/myminis#readme",
-  "devDependencies": {
-    "concurrently": "^9.1.2"
-  }
+	"workspaces": [
+		"frontend",
+		"backend"
+	]
 }
