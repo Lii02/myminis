@@ -24,31 +24,19 @@ app.get('/api/ping', async (req: Request, res: Response) => {
 	res.status(200).json(packet);
 });
 
-app.get('/api/user', async (req: Request, res: Response) => {
-	const { email } = req.body;
-	if (!email) {
-		res.status(400).json({ status: false, message: 'Please provide email' });
-		return;
-	}
-
-	const user = await User.find({ email: email });
-	if (!user) {
-		res.status(400).json({ status: false, message: 'User not found' });
-	} else {
-		res.status(200).json({ status: true, data: user });
-	}
-});
+app.get('/api/user', async (req: Request, res: Response) => {});
 
 app.delete('/api/user', async (req: Request, res: Response) => {});
 
 app.post('/api/user', async (req: Request, res: Response) => {
-	const { email, password } = req.body;
-	if (!email || !password) {
+	const { email, password, username } = req.body;
+	if (!email || !password || !username) {
 		res
 			.status(400)
 			.json({ status: false, message: 'Please provide all fields' });
 		return;
 	}
+
 	const isPasswordValid = checkPasswordValidity(password);
 	if (!isPasswordValid) {
 		res.status(400).json({
@@ -61,6 +49,7 @@ app.post('/api/user', async (req: Request, res: Response) => {
 	const newUser = new User({
 		email: email,
 		password: hashedPassword,
+		username: username
 	});
 
 	if (await User.exists({ email: email })) {
@@ -71,7 +60,7 @@ app.post('/api/user', async (req: Request, res: Response) => {
 	try {
 		await newUser.save();
 		res.status(201).json({ status: true, data: newUser });
-		console.log(`Created user ${email} ${hashedPassword}`);
+		console.log(`Created user ${email} ${hashedPassword} ${username}`);
 	} catch (error: any) {
 		res.status(501).json({ status: false, message: error.message });
 	}

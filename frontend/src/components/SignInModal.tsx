@@ -1,10 +1,23 @@
 'use client';
 import { useState } from 'react';
 import { Modal } from './Modal';
-import { GenericStateProp } from '@/constants/props';
+import {
+	BackendResponse,
+	ModalFormProps,
+	GenericStateProp,
+} from '@/constants/props';
 
-function SignInForm(props: GenericStateProp<boolean>) {
-	const signIn = (formData: FormData) => {};
+enum CurrentForm {
+	SIGNIN = 0,
+	SIGNUP = 1,
+}
+
+function SignInForm(props: ModalFormProps) {
+	const [error, setError] = useState('');
+
+	const signIn = (formData: FormData) => {
+		const [email, password] = formData.entries();
+	};
 
 	return (
 		<>
@@ -16,45 +29,92 @@ function SignInForm(props: GenericStateProp<boolean>) {
 					Sign In
 				</button>
 			</form>
+			<p className='ErrorMessage'>{error}</p>
 			<p>
 				Dont have an account?{' '}
-				<button onClick={() => props.setValue(true)}>Sign Up</button>
+				<button
+					onClick={() => {
+						props.form.setValue(CurrentForm.SIGNUP);
+					}}>
+					Sign Up
+				</button>
 			</p>
 		</>
 	);
 }
 
-function SignUpForm() {
-	const signUp = (formData: FormData) => {};
+function SignUpForm(props: ModalFormProps) {
+	const [error, setError] = useState('');
+
+	const signUp = async (formData: FormData) => {
+		const [email, password, username] = formData.entries();
+
+		try {
+			const result = await fetch('/api/user', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					email: email[1],
+					password: password[1],
+					username: username[1],
+				}),
+			});
+			const response: BackendResponse = await result.json();
+
+			if (response.status) {
+				console.log(response);
+				props.modal.setValue(false);
+				props.form.setValue(CurrentForm.SIGNIN);
+			} else {
+				setError(response.message);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<>
 			<h2>Sign Up</h2>
 			<form action={signUp}>
-				<input type='email' placeholder='Email' />
-				<input type='password' placeholder='Password' />
+				<input name='email' type='email' placeholder='Email' required />
+				<input
+					name='password'
+					type='password'
+					placeholder='Password'
+					required
+				/>
+				<input name='username' type='text' placeholder='Username' required />
 				<button type='submit' className='SubmitButton'>
 					Sign Up
 				</button>
 			</form>
+			<p className='ErrorMessage'>{error}</p>
 		</>
 	);
 }
 
 function SignInModal(props: GenericStateProp<boolean>) {
-	const [signingUp, setSigningUp] = useState(false);
+	const [currentForm, setCurrentForm] = useState(CurrentForm.SIGNIN);
+
+	const stateProps: GenericStateProp<number> = {
+		value: currentForm,
+		setValue: setCurrentForm,
+	};
 
 	return (
 		<Modal
 			isOpen={props.value}
 			onClose={() => {
 				props.setValue(false);
-				setSigningUp(false);
+				setCurrentForm(CurrentForm.SIGNIN);
 			}}>
-			{signingUp ? (
-				<SignUpForm />
+			{currentForm ? (
+				<SignUpForm form={stateProps} modal={props} />
 			) : (
-				<SignInForm value={signingUp} setValue={setSigningUp} />
+				<SignInForm form={stateProps} modal={props} />
 			)}
 		</Modal>
 	);

@@ -4,7 +4,7 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	transition: color 0.2s ease-in;
+	transition: color 0.1s ease-in-out;
 }
 
 .CloseButton:hover {
@@ -16,4 +16,8 @@
 }
 
 .SubmitButton:hover {
+}
+
+.ErrorMessage {
+	color: red;
 }
