@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
 				source: '/api/:path*',
 				destination:
 					process.env.NODE_ENV === 'development'
-						? 'http://localhost:5000/api/:path*'
-						: 'https://myminis-31f8130e43e3.herokuapp.com/api/:path*',
+						? 'http://localhost:5000/:path*'
+						: 'https://myminis-31f8130e43e3.herokuapp.com/:path*',
 			},
 		];
 	},
