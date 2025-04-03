@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import chalk from 'chalk';
 import mongoose from 'mongoose';
 import { connectDB } from './db';
-import { createUser, getUserByEmail } from './user';
+import { createUser, getUserByEmail, getUsersByUsername } from './user';
 import { createPassword } from './password';
 
 const app = express();
@@ -24,23 +24,32 @@ app.get('/api/ping', async (req: Request, res: Response) => {
 });
 
 app.get('/api/user', async (req: Request, res: Response) => {
-	const { email } = req.query;
-	if (!email) {
+	const { email, username } = req.query;
+	if (email) {
+		try {
+			const user = await getUserByEmail(email as string);
+			res.status(200).json({ status: true, data: user });
+		} catch (error: any) {
+			res.status(400).json({ status: false, message: error.message });
+		}
+	} else if (username) {
+		try {
+			const user = await getUsersByUsername(username as string);
+			res.status(200).json({ status: true, data: user });
+		} catch (error: any) {
+			res.status(400).json({ status: false, message: error.message });
+		}
+	} else {
 		res
 			.status(400)
 			.json({ status: false, message: 'Please provide all fields' });
 		return;
 	}
-
-	try {
-		const user = await getUserByEmail(email as string);
-		res.status(200).json({ status: true, data: user });
-	} catch (error: any) {
-		res.status(400).json({ status: false, message: error.message });
-	}
 });
 
-app.delete('/api/user', async (req: Request, res: Response) => {});
+app.delete('/api/user', async (req: Request, res: Response) => {
+	const { email } = req.query;
+});
 
 app.post('/api/user', async (req: Request, res: Response) => {
 	const { email, password, username } = req.body;
