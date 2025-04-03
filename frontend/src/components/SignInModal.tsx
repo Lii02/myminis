@@ -65,7 +65,7 @@ function SignUpForm(props: ModalFormProps) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					email: email[1].toString(),
+					email: email[1] as string,
 					password: password[1] as string,
 					username: username[1] as string,
 				}),
@@ -73,7 +73,6 @@ function SignUpForm(props: ModalFormProps) {
 			const response: BackendResponse = await result.json();
 
 			if (response.status) {
-				console.log(response);
 				props.modal.setValue(false);
 				props.form.setValue(CurrentForm.SIGNIN);
 			} else {
