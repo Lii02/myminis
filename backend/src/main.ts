@@ -4,10 +4,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import chalk from 'chalk';
 import mongoose from 'mongoose';
-import crypto from 'crypto';
 import { connectDB } from './db';
-import { User } from './user';
-import { checkPasswordValidity } from './password';
+import { createUser, getUserByEmail } from './user';
+import { createPassword } from './password';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,7 +23,22 @@ app.get('/api/ping', async (req: Request, res: Response) => {
 	res.status(200).json(packet);
 });
 
-app.get('/api/user', async (req: Request, res: Response) => {});
+app.get('/api/user', async (req: Request, res: Response) => {
+	const { email } = req.query;
+	if(!email) {
+		res
+			.status(400)
+			.json({ status: false, message: 'Please provide all fields' });
+		return;
+	}
+
+	try {
+		const user = await getUserByEmail(email as string);
+		res.status(200).json({ status: true, data: user });
+	} catch (error: any) {
+		res.status(501).json({ status: false, message: error.message });
+	}
+});
 
 app.delete('/api/user', async (req: Request, res: Response) => {});
 
@@ -37,34 +51,26 @@ app.post('/api/user', async (req: Request, res: Response) => {
 		return;
 	}
 
-	const isPasswordValid = checkPasswordValidity(password);
-	if (!isPasswordValid) {
-		res.status(400).json({
-			status: false,
-			message: 'Password must be at least 6 characters long',
-		});
-		return;
-	}
-	const hashedPassword = crypto.hash('sha256', password, 'base64');
-	const newUser = new User({
-		email: email,
-		password: hashedPassword,
-		username: username
-	});
-
-	if (await User.exists({ email: email })) {
-		res.status(409).json({ status: false, message: 'User already exists' });
+	let hashedPassword = '';
+	try {
+		hashedPassword = createPassword(password);
+	} catch (error: any) {
+		res.status(400).json({ status: false, message: error.message });
 		return;
 	}
 
 	try {
-		await newUser.save();
-		res.status(201).json({ status: true, data: newUser });
+		const user = await createUser(email, hashedPassword, username);
+		res.status(201).json({ status: true, data: user });
 		console.log(`Created user ${email} ${hashedPassword} ${username}`);
 	} catch (error: any) {
 		res.status(501).json({ status: false, message: error.message });
 	}
 });
+
+app.post('/api/login', async (req: Request, res: Response) => {
+	const { email, password } = req.query;
+})
 
 app.listen(port, async () => {
 	connectDB();

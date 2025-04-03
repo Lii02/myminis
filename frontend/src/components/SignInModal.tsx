@@ -15,16 +15,25 @@ enum CurrentForm {
 function SignInForm(props: ModalFormProps) {
 	const [error, setError] = useState('');
 
-	const signIn = (formData: FormData) => {
+	const signIn = async (formData: FormData) => {
 		const [email, password] = formData.entries();
+		const query = new URLSearchParams([
+			['email', email[1] as string],
+			['password', password[1] as string],
+		]);
+
+		try {
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
 		<>
 			<h2>Sign In</h2>
 			<form action={signIn}>
-				<input type='email' placeholder='Email' />
-				<input type='password' placeholder='Password' />
+				<input name='email' type='email' placeholder='Email' />
+				<input name='password' type='password' placeholder='Password' />
 				<button type='submit' className='SubmitButton'>
 					Sign In
 				</button>
@@ -56,9 +65,9 @@ function SignUpForm(props: ModalFormProps) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					email: email[1],
-					password: password[1],
-					username: username[1],
+					email: email[1].toString(),
+					password: password[1] as string,
+					username: username[1] as string,
 				}),
 			});
 			const response: BackendResponse = await result.json();

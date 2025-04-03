@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "build": "npm run build --workspaces",
+		"lint": "npm run lint --workspaces",
+		"lint:fix": "npm run lint:fix --workspaces",
     "start:frontend": "cd frontend && npm run start",
     "start:backend": "cd backend && npm run start:clean",
     "start": "concurrently \"npm run start:frontend\" \"cd backend && npm run containers\""
