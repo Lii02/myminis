@@ -13,14 +13,18 @@ const userSchema = new Schema(
 		username: {
 			type: String,
 			required: true,
-		}
+		},
 	},
 	{
 		timestamps: true,
 	},
 );
 
-async function createUser(email: string, hashedPassword: string, username: string) {
+async function createUser(
+	email: string,
+	hashedPassword: string,
+	username: string,
+) {
 	if (await User.exists({ email: email })) {
 		throw new Error(`User ${email} already exists`);
 	}
@@ -28,7 +32,7 @@ async function createUser(email: string, hashedPassword: string, username: strin
 	const newUser = new User({
 		email: email,
 		password: hashedPassword,
-		username: username
+		username: username,
 	});
 
 	await newUser.save();
@@ -36,14 +40,14 @@ async function createUser(email: string, hashedPassword: string, username: strin
 }
 
 async function getUserByEmail(email: string) {
-	if(!await User.exists({ email: email })) {
+	if (!(await User.exists({ email: email }))) {
 		throw new Error(`User ${email} doesn't exist`);
 	}
 	return await User.findOne({ email: email });
 }
 
 async function getUsersByUsername(username: string) {
-	if(!await User.exists({ username: username })) {
+	if (!(await User.exists({ username: username }))) {
 		throw new Error(`User ${username} doesn't exist`);
 	}
 	return await User.find({ username: username });

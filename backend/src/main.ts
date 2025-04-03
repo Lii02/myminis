@@ -25,7 +25,7 @@ app.get('/api/ping', async (req: Request, res: Response) => {
 
 app.get('/api/user', async (req: Request, res: Response) => {
 	const { email } = req.query;
-	if(!email) {
+	if (!email) {
 		res
 			.status(400)
 			.json({ status: false, message: 'Please provide all fields' });
@@ -36,7 +36,7 @@ app.get('/api/user', async (req: Request, res: Response) => {
 		const user = await getUserByEmail(email as string);
 		res.status(200).json({ status: true, data: user });
 	} catch (error: any) {
-		res.status(501).json({ status: false, message: error.message });
+		res.status(400).json({ status: false, message: error.message });
 	}
 });
 
@@ -64,13 +64,13 @@ app.post('/api/user', async (req: Request, res: Response) => {
 		res.status(201).json({ status: true, data: user });
 		console.log(`Created user ${email} ${hashedPassword} ${username}`);
 	} catch (error: any) {
-		res.status(501).json({ status: false, message: error.message });
+		res.status(400).json({ status: false, message: error.message });
 	}
 });
 
 app.post('/api/login', async (req: Request, res: Response) => {
 	const { email, password } = req.query;
-})
+});
 
 app.listen(port, async () => {
 	connectDB();

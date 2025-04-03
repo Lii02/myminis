@@ -8,19 +8,27 @@
 		"dev": "ts-node-dev --respawn --transpile-only src/main.ts",
 		"containers": "docker compose up --build",
 		"start:clean": "npm ci && node .",
-		"start": "tsc && node ."
+		"start": "tsc && node .",
+		"lint": "eslint .",
+		"lint:fix": "prettier --write ."
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"type": "commonjs",
 	"devDependencies": {
+		"@eslint/js": "^9.23.0",
 		"@types/cookie-parser": "^1.4.8",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.1",
 		"@types/node": "^22.14.0",
+		"eslint": "^9.23.0",
+		"eslint-config-prettier": "^10.1.1",
+		"eslint-plugin-prettier": "^5.2.6",
+		"globals": "^16.0.0",
 		"ts-node-dev": "^2.0.0",
-		"typescript": "^5.8.2"
+		"typescript": "^5.8.2",
+		"typescript-eslint": "^8.29.0"
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",
@@ -29,6 +37,7 @@
 		"dotenv": "^16.4.7",
 		"express": "^5.1.0",
 		"mongoose": "^8.13.1",
-		"tslib": "^2.8.1"
+		"tslib": "^2.8.1",
+		"globals": "^16.0.0"
 	}
 }
