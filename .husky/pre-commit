@@ -1,2 +1,0 @@
-npm run lint:fix
-git update-index --again

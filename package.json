@@ -8,8 +8,7 @@
     "lint:fix": "npm run lint:fix --workspaces",
     "start:frontend": "cd frontend && npm run start",
     "start:backend": "cd backend && npm run start:clean",
-    "start": "concurrently \"npm run start:frontend\" \"cd backend && npm run containers\"",
-    "prepare": "husky"
+    "start": "concurrently \"npm run start:frontend\" \"cd backend && npm run containers\""
   },
   "repository": {
     "type": "git",
