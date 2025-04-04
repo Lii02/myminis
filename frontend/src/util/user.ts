@@ -4,7 +4,7 @@ async function createUser(
 	email: string,
 	password: string,
 	username: string,
-	error: GenericStateProp<string>,
+	errorState: GenericStateProp<string>,
 ) {
 	try {
 		const result = await fetch('/api/user', {
@@ -15,14 +15,34 @@ async function createUser(
 		const response: BackendResponse = await result.json();
 
 		if (!response.status) {
-			error.setValue(response.message);
+			errorState.setValue(response.message);
 			return false;
 		}
-	} catch (error) {
-		console.log(error);
+	} catch (error: any) {
+		console.log(error.message);
 		return false;
 	}
 	return true;
 }
 
-export { createUser };
+async function loginUser(email: string, password: string, errorState: GenericStateProp<string>) {
+	try {
+		const result = await fetch('/api/user/login', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: email, password: password }),
+		});
+		const response: BackendResponse = await result.json();
+
+		if (!response.status) {
+			errorState.setValue(response.message);
+			return false;
+		}
+	} catch (error: any) {
+		console.log(error.message);
+		return false;
+	}
+	return true;
+}
+
+export { createUser, loginUser };

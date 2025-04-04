@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Modal } from './Modal';
 import { ModalFormProps, GenericStateProp } from '@/constants/props';
-import { createUser } from '@/util/user';
+import { createUser, loginUser } from '@/util/user';
 
 enum CurrentForm {
 	SIGNIN = 0,
@@ -16,6 +16,15 @@ function SignInForm(props: ModalFormProps) {
 		const [email, password] = formData.entries();
 
 		try {
+			const loginResult = await loginUser(email[1] as string, password[1] as string, {
+				value: error,
+				setValue: setError,
+			});
+
+			if (loginResult) {
+				props.form.setValue(CurrentForm.SIGNIN);
+				props.modal.setValue(false);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -30,17 +39,17 @@ function SignInForm(props: ModalFormProps) {
 				<button type='submit' className='SubmitButton'>
 					Sign In
 				</button>
+				<p className='ErrorMessage'>{error}</p>
+				<p>
+					Dont have an account?{' '}
+					<button
+						onClick={() => {
+							props.form.setValue(CurrentForm.SIGNUP);
+						}}>
+						Sign Up
+					</button>
+				</p>
 			</form>
-			<p className='ErrorMessage'>{error}</p>
-			<p>
-				Dont have an account?{' '}
-				<button
-					onClick={() => {
-						props.form.setValue(CurrentForm.SIGNUP);
-					}}>
-					Sign Up
-				</button>
-			</p>
 		</>
 	);
 }
@@ -58,6 +67,11 @@ function SignUpForm(props: ModalFormProps) {
 			{ value: error, setValue: setError },
 		);
 
+		await loginUser(email[1] as string, password[1] as string, {
+			value: error,
+			setValue: setError,
+		});
+
 		if (createResult) {
 			props.form.setValue(CurrentForm.SIGNIN);
 			props.modal.setValue(false);
@@ -74,8 +88,8 @@ function SignUpForm(props: ModalFormProps) {
 				<button type='submit' className='SubmitButton'>
 					Sign Up
 				</button>
+				<p className='ErrorMessage'>{error}</p>
 			</form>
-			<p className='ErrorMessage'>{error}</p>
 		</>
 	);
 }
