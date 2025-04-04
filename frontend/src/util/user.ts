@@ -1,5 +1,14 @@
 import { BackendResponse, GenericStateProp } from '@/constants/props';
 
+interface User {
+	id: string;
+	email: string;
+	password: string;
+	username: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 async function createUser(
 	email: string,
 	password: string,
@@ -16,13 +25,13 @@ async function createUser(
 
 		if (!response.status) {
 			errorState.setValue(response.message);
-			return false;
+			return null;
 		}
+		return response.data;
 	} catch (error: any) {
 		console.log(error.message);
-		return false;
+		return null;
 	}
-	return true;
 }
 
 async function loginUser(email: string, password: string, errorState: GenericStateProp<string>) {
@@ -36,13 +45,13 @@ async function loginUser(email: string, password: string, errorState: GenericSta
 
 		if (!response.status) {
 			errorState.setValue(response.message);
-			return false;
+			return null;
 		}
+		return response.data;
 	} catch (error: any) {
 		console.log(error.message);
-		return false;
+		return null;
 	}
-	return true;
 }
 
-export { createUser, loginUser };
+export { type User, createUser, loginUser };

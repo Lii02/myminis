@@ -3,6 +3,7 @@
 	flex-direction: row;
 	align-items: center;
 	background: rgb(10, 10, 10);
+	height: 4rem;
 }
 
 .nav h1 {

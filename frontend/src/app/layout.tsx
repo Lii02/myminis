@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { createFontClasses } from '@/constants/fonts';
 import { NavBar } from '@/components/NavBar';
+import { GlobalStateProvider } from '@/util/context';
 
 export const metadata: Metadata = { title: 'MyMinis' };
 
@@ -12,8 +13,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 		<html lang='en' suppressHydrationWarning>
 			<body className={createFontClasses()}>
 				<ThemeProvider themes={['light', 'dark']}>
-					<NavBar />
-					{children}
+					<GlobalStateProvider>
+						<NavBar />
+						{children}
+					</GlobalStateProvider>
 				</ThemeProvider>
 			</body>
 		</html>

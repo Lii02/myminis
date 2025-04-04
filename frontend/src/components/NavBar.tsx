@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { MdAdd, MdSettings } from 'react-icons/md';
 import { SignInModal } from './SignInModal';
+import { useGlobalContext } from '@/util/context';
 
 export function SignInLink() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,8 @@ function UserOptions() {
 }
 
 export function NavBar() {
-	let signedIn = false;
+	const state = useGlobalContext();
+	const signedIn = state.user !== null;
 
 	return (
 		<nav className={styles.nav}>

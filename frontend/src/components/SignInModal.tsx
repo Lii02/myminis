@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Modal } from './Modal';
 import { ModalFormProps, GenericStateProp } from '@/constants/props';
 import { createUser, loginUser } from '@/util/user';
+import { useGlobalContext } from '@/util/context';
 
 enum CurrentForm {
 	SIGNIN = 0,
@@ -11,6 +12,7 @@ enum CurrentForm {
 
 function SignInForm(props: ModalFormProps) {
 	const [error, setError] = useState('');
+	const state = useGlobalContext();
 
 	const signIn = async (formData: FormData) => {
 		const [email, password] = formData.entries();
@@ -22,6 +24,7 @@ function SignInForm(props: ModalFormProps) {
 			});
 
 			if (loginResult) {
+				state.signIn(loginResult);
 				props.form.setValue(CurrentForm.SIGNIN);
 				props.modal.setValue(false);
 			}
@@ -56,6 +59,7 @@ function SignInForm(props: ModalFormProps) {
 
 function SignUpForm(props: ModalFormProps) {
 	const [error, setError] = useState('');
+	const state = useGlobalContext();
 
 	const signUp = async (formData: FormData) => {
 		const [email, password, username] = formData.entries();
@@ -67,12 +71,13 @@ function SignUpForm(props: ModalFormProps) {
 			{ value: error, setValue: setError },
 		);
 
-		await loginUser(email[1] as string, password[1] as string, {
+		const loginResult = await loginUser(email[1] as string, password[1] as string, {
 			value: error,
 			setValue: setError,
 		});
 
 		if (createResult) {
+			state.signIn(loginResult);
 			props.form.setValue(CurrentForm.SIGNIN);
 			props.modal.setValue(false);
 		}
@@ -96,7 +101,6 @@ function SignUpForm(props: ModalFormProps) {
 
 function SignInModal(props: GenericStateProp<boolean>) {
 	const [currentForm, setCurrentForm] = useState(CurrentForm.SIGNIN);
-
 	const stateProps: GenericStateProp<number> = { value: currentForm, setValue: setCurrentForm };
 
 	return (
