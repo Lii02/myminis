@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { Modal } from './Modal';
-import { BackendResponse, ModalFormProps, GenericStateProp } from '@/constants/props';
+import { ModalFormProps, GenericStateProp } from '@/constants/props';
+import { createUser } from '@/util/user';
 
 enum CurrentForm {
 	SIGNIN = 0,
@@ -50,26 +51,16 @@ function SignUpForm(props: ModalFormProps) {
 	const signUp = async (formData: FormData) => {
 		const [email, password, username] = formData.entries();
 
-		try {
-			const result = await fetch('/api/user', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					email: email[1] as string,
-					password: password[1] as string,
-					username: username[1] as string,
-				}),
-			});
-			const response: BackendResponse = await result.json();
+		const createResult = await createUser(
+			email[1] as string,
+			password[1] as string,
+			username[1] as string,
+			{ value: error, setValue: setError },
+		);
 
-			if (response.status) {
-				props.modal.setValue(false);
-				props.form.setValue(CurrentForm.SIGNIN);
-			} else {
-				setError(response.message);
-			}
-		} catch (error) {
-			console.log(error);
+		if (createResult) {
+			props.form.setValue(CurrentForm.SIGNIN);
+			props.modal.setValue(false);
 		}
 	};
 
