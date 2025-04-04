@@ -83,7 +83,7 @@ authRoutes.post('/login', async (req: Request, res: Response) => {
 			expiresIn: '1h',
 		});
 		res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-		res.json({ status: true, data: token });
+		res.json({ status: true, data: user });
 	} catch {
 		res.status(400).json({ status: false, message: 'Invalid email or password' });
 	}
