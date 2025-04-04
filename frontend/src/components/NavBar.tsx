@@ -53,9 +53,7 @@ export function NavBar() {
 			<Link href='/collection'>
 				<h4>Collection</h4>
 			</Link>
-			<div className={styles.RightSide}>
-				{signedIn ? <UserOptions /> : <SignInLink />}
-			</div>
+			<div className={styles.RightSide}>{signedIn ? <UserOptions /> : <SignInLink />}</div>
 		</nav>
 	);
 }

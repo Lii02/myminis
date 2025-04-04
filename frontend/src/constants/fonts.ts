@@ -1,14 +1,8 @@
 import { Roboto, Geist, Press_Start_2P } from 'next/font/google';
 
-const geist = Geist({
-	variable: '--font-geist',
-	subsets: ['latin'],
-});
+const geist = Geist({ variable: '--font-geist', subsets: ['latin'] });
 
-const roboto = Roboto({
-	variable: '--font-roboto',
-	subsets: ['latin'],
-});
+const roboto = Roboto({ variable: '--font-roboto', subsets: ['latin'] });
 
 const pressStart = Press_Start_2P({
 	variable: '--font-press-start',

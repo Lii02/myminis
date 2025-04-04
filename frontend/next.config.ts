@@ -2,9 +2,7 @@ import type { NextConfig } from 'next';
 import process from 'process';
 
 const nextConfig: NextConfig = {
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
+	eslint: { ignoreDuringBuilds: true },
 	async rewrites() {
 		return [
 			{

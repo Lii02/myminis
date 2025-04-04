@@ -7,20 +7,9 @@ import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 export default defineConfig([
 	globalIgnores(['dist/*']),
 	{ files: ['**/*.{js,mjs,cjs,ts}'] },
-	{
-		files: ['**/*.{js,mjs,cjs,ts}'],
-		languageOptions: { globals: globals.node },
-	},
-	{
-		files: ['**/*.{js,mjs,cjs,ts}'],
-		plugins: { js },
-		extends: ['js/recommended'],
-	},
+	{ files: ['**/*.{js,mjs,cjs,ts}'], languageOptions: { globals: globals.node } },
+	{ files: ['**/*.{js,mjs,cjs,ts}'], plugins: { js }, extends: ['js/recommended'] },
 	tseslint.configs.recommended,
 	eslintPluginPrettier,
-	{
-		rules: {
-			'@typescript-eslint/no-explicit-any': 'off',
-		},
-	},
+	{ rules: { '@typescript-eslint/no-explicit-any': 'off' } },
 ]);

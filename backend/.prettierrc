@@ -5,5 +5,7 @@
 	"bracketSameLine": true,
 	"singleQuote": true,
 	"tabWidth": 2,
-	"printWidth": 80
+	"useTabs": true,
+	"printWidth": 100,
+	"objectWrap": "collapse"
 }

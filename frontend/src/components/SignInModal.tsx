@@ -1,11 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Modal } from './Modal';
-import {
-	BackendResponse,
-	ModalFormProps,
-	GenericStateProp,
-} from '@/constants/props';
+import { BackendResponse, ModalFormProps, GenericStateProp } from '@/constants/props';
 
 enum CurrentForm {
 	SIGNIN = 0,
@@ -17,10 +13,6 @@ function SignInForm(props: ModalFormProps) {
 
 	const signIn = async (formData: FormData) => {
 		const [email, password] = formData.entries();
-		const query = new URLSearchParams([
-			['email', email[1] as string],
-			['password', password[1] as string],
-		]);
 
 		try {
 		} catch (error) {
@@ -61,9 +53,7 @@ function SignUpForm(props: ModalFormProps) {
 		try {
 			const result = await fetch('/api/user', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					email: email[1] as string,
 					password: password[1] as string,
@@ -88,12 +78,7 @@ function SignUpForm(props: ModalFormProps) {
 			<h2>Sign Up</h2>
 			<form action={signUp}>
 				<input name='email' type='email' placeholder='Email' required />
-				<input
-					name='password'
-					type='password'
-					placeholder='Password'
-					required
-				/>
+				<input name='password' type='password' placeholder='Password' required />
 				<input name='username' type='text' placeholder='Username' required />
 				<button type='submit' className='SubmitButton'>
 					Sign Up
@@ -107,10 +92,7 @@ function SignUpForm(props: ModalFormProps) {
 function SignInModal(props: GenericStateProp<boolean>) {
 	const [currentForm, setCurrentForm] = useState(CurrentForm.SIGNIN);
 
-	const stateProps: GenericStateProp<number> = {
-		value: currentForm,
-		setValue: setCurrentForm,
-	};
+	const stateProps: GenericStateProp<number> = { value: currentForm, setValue: setCurrentForm };
 
 	return (
 		<Modal
