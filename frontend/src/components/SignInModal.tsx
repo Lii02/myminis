@@ -90,9 +90,7 @@ function SignUpForm(props: ModalFormProps) {
 				<input name='email' type='email' placeholder='Email' required />
 				<input name='password' type='password' placeholder='Password' required />
 				<input name='username' type='text' placeholder='Username' required />
-				<button type='submit' className='SubmitButton'>
-					Sign Up
-				</button>
+				<button type='submit'>Sign Up</button>
 				<p className='ErrorMessage'>{error}</p>
 			</form>
 		</>

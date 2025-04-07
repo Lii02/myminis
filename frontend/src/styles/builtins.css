@@ -11,13 +11,6 @@
 	color: rgb(100, 100, 100);
 }
 
-.SubmitButton {
-	padding: 5px 5px;
-}
-
-.SubmitButton:hover {
-}
-
 .ErrorMessage {
 	color: red;
 }
